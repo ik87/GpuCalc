@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Cloo;
 using OpenCLTemplate;
 
+
 namespace GpuCalc
 {
     public partial class Form1 : Form
@@ -52,21 +53,28 @@ namespace GpuCalc
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(textBox1.Text, "[^0-9,]"))
-            {
-                
-                textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1);
-                textBox1.SelectionStart = textBox1.Text.Length;
-            }
+
         }
 
         private void textBox2_TextChanged_1(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(textBox2.Text, "[^0-9,]"))
-            {
-                textBox2.Text = textBox2.Text.Remove(textBox2.Text.Length - 1);
-                textBox2.SelectionStart = textBox2.Text.Length;
-            }
+
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsControl(e.KeyChar)) return;
+            if (Char.IsDigit(e.KeyChar)) return;
+            if (e.KeyChar == ',') return;
+            e.Handled = true;
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsControl(e.KeyChar)) return;
+            if (Char.IsDigit(e.KeyChar)) return;
+            if (e.KeyChar == ',') return;
+            e.Handled = true;
         }
     }
 }
